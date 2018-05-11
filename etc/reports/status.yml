@@ -1,0 +1,8 @@
+title: "Cluster status"
+fields:
+  - name: wait
+    title: Avg. Wait
+    format: string
+  - name: capacity
+    title: Capacity
+    type: string

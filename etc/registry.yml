@@ -1,0 +1,4 @@
+---
+:endpoints:
+- http://localhost:9292
+- http://34.246.75.113:9292

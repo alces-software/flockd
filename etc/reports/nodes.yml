@@ -1,0 +1,11 @@
+title: "Node status"
+fields:
+  - name: nodes
+    title: Nodes
+    format: string
+  - name: busy
+    title: Busy
+    type: string
+  - name: about
+    title: About
+    type: string

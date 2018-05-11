@@ -1,0 +1,10 @@
+---
+#:registry: "/opt/flockd/etc/registry.yml"
+#:values: "/opt/flockd/etc/values.yml"
+#:report_dir: "/opt/flockd/etc/reports"
+#:hook_dir: "/opt/flockd/etc/hooks",
+#:trigger_dir: "/opt/flockd/etc/triggers"
+:password: 'none'
+:name: 'hibbert'
+:hub: true
+:hub_endpoint_url: http://localhost:9292/
