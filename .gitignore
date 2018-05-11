@@ -4,3 +4,5 @@
 vendor/ruby
 tmp
 *.pyc
+etc/values.yml
+etc/registry.yml
