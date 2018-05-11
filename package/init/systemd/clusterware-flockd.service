@@ -1,0 +1,19 @@
+################################################################################
+##
+## Alces Clusterware - Systemd service unit file
+## Copyright (c) 2018 Alces Software Ltd
+##
+################################################################################
+# Alces Flight Flockd Daemon (systemd service unit)
+[Unit]
+Description=Alces Flight Flockd Daemon
+After=network.target
+
+[Service]
+User=root
+Type=forking
+ExecStart=_cw_ROOT_/opt/flockd/libexec/flockd-starter
+PIDFile=/var/run/clusterware-flockd.pid
+
+[Install]
+WantedBy=multi-user.target
