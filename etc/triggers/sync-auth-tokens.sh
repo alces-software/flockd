@@ -1,7 +1,13 @@
 #!/bin/bash
 echo "---"
-for a in /tmp/test/*/token; do # /users/*/.config/flock/token; do
-  uid=$(gstat -c%u "$a")
-  token=$(cat "$a")
-  echo "auth.$uid: $token"
+users=($(compgen -u))
+for u in "${users[@]}"; do
+  h="$(eval echo ~$u)"
+  tokenf=$h/.config/flock/token
+  if [ -f "${tokenf}" ]; then
+    uid=$(id -u "${u}")
+    token=$(cat "${tokenf}")
+    echo "auth.$uid: $token"
+  fi
 done
+
