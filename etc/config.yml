@@ -5,6 +5,6 @@
 #:hook_dir: "/opt/flockd/etc/hooks",
 #:trigger_dir: "/opt/flockd/etc/triggers"
 :password: 'none'
-:name: 'hibbert'
-:hub: true
+:name: 'mycluster'
+:hub: false
 :hub_endpoint_url: http://localhost:9292/
