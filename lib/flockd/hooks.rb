@@ -49,6 +49,20 @@ module Flockd
           nil
         end
       end
+
+      def replicate(endpoint, key)
+        val = Flockd.values.get(key)
+        connection = Faraday.new(endpoint) do |conn|
+          conn.response :json, :content_type => /\bjson$/
+          conn.basic_auth('hub',Flockd.config.values['auth.hub'])
+          conn.adapter Faraday.default_adapter
+        end
+        resp = connection(auth).post('set') do |req|
+          req.headers['Content-Type'] = 'application/json'
+          req.body = {key: k, value: v, mode: 'replicate'}.to_json
+        end
+        resp.status == 204
+      end
     end
 
     def get(key)
@@ -57,20 +71,6 @@ module Flockd
         key = key.split('.').tap{|a| a.pop}.join('.')
       end
       data[key.to_sym]
-    end
-
-    def replicate(endpoint, key)
-      val = Flockd.values.get(key)
-      connection = Faraday.new(endpoint) do |conn|
-        conn.response :json, :content_type => /\bjson$/
-        conn.basic_auth('hub',Flockd.config.values['auth.hub'])
-        conn.adapter Faraday.default_adapter
-      end
-      resp = connection(auth).post('set') do |req|
-        req.headers['Content-Type'] = 'application/json'
-        req.body = {key: k, value: v, mode: 'replicate'}.to_json
-      end
-      resp.status == 204
     end
 
     private
