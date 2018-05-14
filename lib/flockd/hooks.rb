@@ -21,7 +21,7 @@ module Flockd
                   if Flockd.hub?
                     # replicate to all clusters
                     Flockd.registry.endpoints.each do |endpoint|
-                      replicate(Flockd.config.hub_endpoint_url, $1)
+                      replicate(endpoint, $1)
                     end
                   else
                     # replicate to hub

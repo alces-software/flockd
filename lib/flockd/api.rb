@@ -46,7 +46,7 @@ module Flockd
             true
           elsif key.start_with?('user.')
             user = key.split('.')[1]
-            username == user && Engine.valid_credentials?(username, password)
+            (username == user || username == 'hub') && Engine.valid_credentials?(username, password)
           else
             false
           end
