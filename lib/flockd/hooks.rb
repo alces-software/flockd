@@ -57,7 +57,7 @@ module Flockd
           conn.basic_auth('hub',Flockd.config.values['auth.hub'])
           conn.adapter Faraday.default_adapter
         end
-        resp = connection(auth).post('set') do |req|
+        resp = connection.post('set') do |req|
           req.headers['Content-Type'] = 'application/json'
           req.body = {key: k, value: v, mode: 'replicate'}.to_json
         end
