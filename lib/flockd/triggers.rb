@@ -58,7 +58,7 @@ module Flockd
           out_vals = YAML.load(output)
           out_vals.each do |k,v|
             puts "=> #{k}: #{v}"
-            Flockd.values[k.to_s] = v
+            Flockd.values.set(k.to_s, v)
           end
         elsif type == 'yml'
           descriptor = YAML.load_file(file)
