@@ -10,7 +10,8 @@ module Flockd
 
       def run(key, old, val, mode)
         if type == 'sh'
-          IO.popen(['/bin/bash', file, key, old, val, Flockd.hub? ? 'hub' : mode], 'r+') do |io|
+          mode = (Flockd.hub? ? 'hub' : mode)
+          IO.popen(['/bin/bash', file, key, old, val, mode || 'set'], 'r+') do |io|
             begin
               loop do
                 line = io.readline.chomp
