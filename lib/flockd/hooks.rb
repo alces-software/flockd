@@ -51,7 +51,7 @@ module Flockd
       end
 
       def replicate(endpoint, key)
-        val = Flockd.values.get(key)
+        val = Flockd.values[key]
         connection = Faraday.new(endpoint) do |conn|
           conn.response :json, :content_type => /\bjson$/
           conn.basic_auth('hub',Flockd.config.values['auth.hub'])
