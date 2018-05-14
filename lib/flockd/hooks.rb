@@ -59,7 +59,7 @@ module Flockd
         end
         resp = connection.post('set') do |req|
           req.headers['Content-Type'] = 'application/json'
-          req.body = {key: k, value: v, mode: 'replicate'}.to_json
+          req.body = {key: key, value: val, mode: 'replicate'}.to_json
         end
         resp.status == 204
       end
