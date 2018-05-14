@@ -20,9 +20,13 @@ for c in $clusters; do
     scope=$($_JQ -r .scope <<< "$export")
     source=$($_JQ -r .source <<< "$export")
     if [ "${scope}" == "system" ]; then
-        echo "# mount -t nfs $source /mnt/flock/targets/${c}/${a}"
-        mkdir -p /mnt/flock/targets/${c}/${a}
-        mount -t nfs $source /mnt/flock/targets/${c}/${a}
+        if ! grep -q /mnt/flock/targets/${c}/${a} /proc/mounts; then
+            echo "# mount -t nfs $source /mnt/flock/targets/${c}/${a}"
+            mkdir -p /mnt/flock/targets/${c}/${a}
+            mount -t nfs $source /mnt/flock/targets/${c}/${a}
+        else
+          echo "# already mounted: /mnt/flock/targets/${c}/${a}"
+        fi
     fi
   done
 done
