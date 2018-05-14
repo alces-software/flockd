@@ -21,7 +21,7 @@ for c in $clusters; do
     source=$($_JQ -r .source <<< "$export")
     if [ "${scope}" == "system" ]; then
         echo "# mount -t nfs $source /mnt/flock/targets/${c}/${a}"
-        mkdir /mnt/flock/targets/${c}/${a}
+        mkdir -p /mnt/flock/targets/${c}/${a}
         mount -t nfs $source /mnt/flock/targets/${c}/${a}
     fi
   done
