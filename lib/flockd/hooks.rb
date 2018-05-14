@@ -54,7 +54,7 @@ module Flockd
         val = Flockd.values[key]
         connection = Faraday.new(endpoint) do |conn|
           conn.response :json, :content_type => /\bjson$/
-          conn.basic_auth('',Flockd.config.values['auth.hub'])
+          conn.basic_auth('hub',Flockd.config.values['auth.hub'])
           conn.adapter Faraday.default_adapter
         end
         resp = connection.post('set') do |req|
