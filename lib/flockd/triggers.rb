@@ -77,9 +77,9 @@ module Flockd
 
       def endpoint_for(cluster_name)
         cluster = clusters.find do |c|
-          c[:name] == cluster_name
+          c['name'] == cluster_name
         end
-        cluster && cluster[:endpoint]
+        cluster && cluster['endpoint']
       end
 
       def clusters

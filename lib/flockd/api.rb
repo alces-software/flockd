@@ -51,7 +51,7 @@ module Flockd
             false
           end
         if allowed
-          Flockd.values[key] = params[:value]
+          Flockd.values.set(key, params[:value], params[:mode])
           status 204
         else
           status 401

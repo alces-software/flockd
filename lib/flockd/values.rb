@@ -12,12 +12,12 @@ module Flockd
       data[k.to_sym]
     end
 
-    def []=(key, val)
+    def set(key, val, mode = 'set')
       old = data[key.to_sym]
       data[key.to_sym] = val
       if old != val
         hook = Flockd.hooks.get(key)
-        hook.run(key, old, val) unless hook.nil?
+        hook.run(key, old, val, mode) unless hook.nil?
       end
     ensure
       save

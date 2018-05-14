@@ -1,4 +1,5 @@
 #!/bin/bash
+_JQ="/opt/clusterware/opt/jq/bin/jq"
 echo "clusters"
 read clusters
 echo "localcluster"
@@ -15,11 +16,17 @@ for c in $clusters; do
     echo "get $c exports.$a"
     read export
     echo "# Export: $a is: $export"
-    type=$(jq -r .type <<< "$export")
-    scope=$(jq -r .scope <<< "$export")
-    source=$(jq -r .source <<< "$export")
+    type=$($_JQ -r .type <<< "$export")
+    scope=$($_JQ -r .scope <<< "$export")
+    source=$($_JQ -r .source <<< "$export")
     if [ "${scope}" == "system" ]; then
-        echo "# mount -t nfs $source /mnt/flock/local/${a}"
+        echo "# mount -t nfs $source /mnt/flock/targets/${c}/${a}"
+        mkdir /mnt/flock/targets/${c}/${a}
+        mount -t nfs $source /mnt/flock/targets/${c}/${a}
     fi
   done
 done
+if [ ! -d /mnt/flock/users ]; then
+    mkdir -p /mnt/flock/users
+    chmod 1777 /mnt/flock/users
+fi
