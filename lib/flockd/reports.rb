@@ -17,7 +17,6 @@ module Flockd
                 Flockd.values[name]
               end
           end
-          puts h.inspect
         end
       end
     end
