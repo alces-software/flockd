@@ -1,0 +1,8 @@
+title: "Weekly usage history"
+type: local
+columns:
+  - Day
+  - Submissions
+  - Wait (mean)
+  - Wait (max)
+source: usage.week

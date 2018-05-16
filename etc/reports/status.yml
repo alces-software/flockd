@@ -1,8 +1,8 @@
 title: "Cluster status"
 fields:
-  - name: wait
-    title: Avg. Wait
+  - name: usage.week.wait.mean
+    title: Wait (mean)
     format: string
-  - name: capacity
-    title: Capacity
+  - name: usage.capacity
+    title: Utilization (12-hr)
     type: string

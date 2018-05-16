@@ -1,0 +1,8 @@
+title: "Cluster weekly usage"
+fields:
+  - name: usage.week.submissions
+    title: Submissions
+  - name: usage.week.wait.mean
+    title: Wait (mean)
+  - name: usage.week.wait.max
+    title: Wait (max)
