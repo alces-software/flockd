@@ -29,5 +29,13 @@ module Flockd
     def triggers
       @triggers ||= Triggers.new
     end
+
+    def logger
+      @logger ||= begin
+                    log_file = File.open(config.log_file, 'a')
+                    log_file.sync = true
+                    Logger.new GrapeLogging::MultiIO.new(STDOUT, log_file)
+                  end
+    end
   end
 end

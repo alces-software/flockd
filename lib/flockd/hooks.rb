@@ -15,7 +15,7 @@ module Flockd
             begin
               loop do
                 line = io.readline.chomp
-                puts "> #{line}"
+                Flockd.logger.info "> #{line}"
                 case line
                 when /^replicate (\S*)$/
                   if Flockd.hub?
@@ -31,7 +31,7 @@ module Flockd
                   # no-op
                   nil
                 else
-                  puts ""
+                  Flockd.logger.info ""
                   io.write "\n"
                 end
               end
@@ -44,7 +44,7 @@ module Flockd
           descriptor = YAML.load_file(file)
           # XXX - do some kind of clever stuff here, like communicate with other clusters etc.
           # i.e. this needs to support "replication" hooks
-          puts descriptor.inspect, key, old, val
+          Flockd.logger.info descriptor.inspect, key, old, val
         else
           nil
         end
@@ -85,7 +85,7 @@ module Flockd
           next unless base.include?('.')
           *base_parts, type = base.split('.')
           h[base_parts.join('.').to_sym] = Hook.new(f, type)
-          puts h.inspect
+          Flockd.logger.info h.inspect
         end
       end
     end

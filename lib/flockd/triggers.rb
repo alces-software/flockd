@@ -14,27 +14,27 @@ module Flockd
             begin
               loop do
                 line = io.readline.chomp
-                puts "> #{line}"
+                Flockd.logger.info "> #{line}"
                 case line
                 when /^clusters$/
                   cluster_names = clusters.map{|c| c['name']}
-                  puts cluster_names.join(" ")
+                  Flockd.logger.info cluster_names.join(" ")
                   io.write cluster_names.join(" ") + "\n"
                 when /^localcluster$/
-                  puts Flockd.config.name
+                  Flockd.logger.info Flockd.config.name
                   io.write Flockd.config.name + "\n"
                 when /^get (\S*) (\S*)/
                   cluster = $1
                   key = $2
                   if local?(cluster)
-                    puts "#{Flockd.values[key].inspect}"
+                    Flockd.logger.info "#{Flockd.values[key].inspect}"
                     io.write Flockd.values[key].to_s + "\n"
                   else
                     cluster_endpoint = endpoint_for(cluster)
                     if cluster_endpoint
                       value = Flockd::Query::Basic.new("value")
                                 .retrieve(cluster_endpoint, {name: key})
-                      puts value.inspect
+                      Flockd.logger.info value.inspect
                       io.write value + "\n"
                     else
                       io.write "\n"
@@ -46,7 +46,7 @@ module Flockd
                 when '---'
                   break
                 else
-                  puts ""
+                  Flockd.logger.info ""
                   io.write "\n"
                 end
               end
@@ -57,14 +57,14 @@ module Flockd
           end
           out_vals = YAML.load(output)
           out_vals.each do |k,v|
-            puts "=> #{k}: #{v}"
+            Flockd.logger.info "=> #{k}: #{v}"
             Flockd.values.set(k.to_s, v)
           end
         elsif type == 'yml'
           descriptor = YAML.load_file(file)
           # XXX - do some kind of clever stuff here, like communicate with other clusters etc.
           # i.e. this needs to support "replication" hooks
-          puts descriptor.inspect
+          Flockd.logger.info descriptor.inspect
         else
           nil
         end

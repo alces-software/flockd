@@ -13,7 +13,8 @@ module Flockd
       password: ENV['FLOCK_PASSWORD'],
       name: 'unnamed',
       hub: false,
-      hub_endpoint_url: 'http://127.0.0.1:9292'
+      hub_endpoint_url: 'http://127.0.0.1:9292',
+      log_file: "/tmp/flockd.log",
     }
 
     def method_missing(s, *a, &b)

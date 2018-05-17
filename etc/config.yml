@@ -8,3 +8,4 @@
 :name: 'mycluster'
 :hub: false
 :hub_endpoint_url: http://localhost:9292/
+#:log_file: /var/log/flockd/flockd.log

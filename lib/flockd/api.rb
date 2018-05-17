@@ -1,9 +1,25 @@
 require 'grape'
+require 'grape_logging'
 require 'flockd/engine'
 
 module Flockd
   class API < Grape::API
     format :json
+
+    logger Flockd.logger
+    logger.formatter = GrapeLogging::Formatters::Default.new
+    use GrapeLogging::Middleware::RequestLogger,
+        logger: Flockd.logger,
+        include: [ GrapeLogging::Loggers::Response.new,
+                   GrapeLogging::Loggers::FilterParameters.new,
+                   GrapeLogging::Loggers::ClientEnv.new ]
+                   #GrapeLogging::Loggers::RequestHeaders.new ]
+
+    rescue_from :all do |e|
+      Flockd.logger.error e
+      status 500
+      ''
+    end
 
     head '/ping' do
       status 204
