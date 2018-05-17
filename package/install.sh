@@ -10,6 +10,8 @@ cp "${cw_ROOT}"/opt/flocked/etc/values.yml.ex "${cw_ROOT}"/opt/flocked/etc/value
 chmod 0600 "${cw_ROOT}"/opt/flocked/etc/values.yml
 chmod 0600 "${cw_ROOT}"/opt/flocked/etc/config.yml
 
+echo ':log_file: /var/log/flockd/flockd.log' >> "${cw_ROOT}"/opt/flockd/etc/config.yml
+
 mkdir -p /var/log/flockd
 touch /var/log/flockd/flockd.log
 chmod 0600 /var/log/flockd/flockd.log
