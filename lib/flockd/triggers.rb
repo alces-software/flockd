@@ -83,12 +83,12 @@ module Flockd
       end
 
       def clusters
-        @clusters ||= if Flockd.hub?
-                        Flockd::Reporter::Clusters.report
-                      else
-                        cluster_query = Flockd::Query::Basic.new('clusters')
-                        cluster_query.retrieve(Flockd.config.hub_endpoint_url)
-                      end
+        if Flockd.hub?
+          Flockd::Reporter::Clusters.report
+        else
+          cluster_query = Flockd::Query::Basic.new('clusters')
+          cluster_query.retrieve(Flockd.config.hub_endpoint_url)
+        end
       end
     end
 
