@@ -1,5 +1,5 @@
 ---
-:auth.hub: password
-:access_ip: 127.0.0.1
-:exports: "users"
-:exports.users: '{"type":"nfs","scope":"system","source":"127.0.0.1:/exports/users"}'
+:auth.hub: changeme-to-hub-password
+:access_ip: 10.100.1.10
+:exports: "home"
+:exports.home: '{"type":"nfs","scope":"system","source":"10.100.1.10:/home"}'

@@ -4,8 +4,8 @@
 #:report_dir: "/opt/flockd/etc/reports"
 #:hook_dir: "/opt/flockd/etc/hooks",
 #:trigger_dir: "/opt/flockd/etc/triggers"
-:password: 'none'
+#:log_file: /var/log/flockd/flockd.log
+:password: 'changeme-to-local-password'
 :name: 'mycluster'
 :hub: false
 :hub_endpoint_url: http://localhost:9292/
-#:log_file: /var/log/flockd/flockd.log
