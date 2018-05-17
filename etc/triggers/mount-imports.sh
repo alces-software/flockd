@@ -1,4 +1,7 @@
 #!/bin/bash
+. /opt/clusterware/etc/flock.rc
+cw_FLOCK_mnt=${cw_FLOCK_mnt:-/mnt/flight}
+mkdir -p ${cw_FLOCK_mnt}
 _JQ="/opt/clusterware/opt/jq/bin/jq"
 echo "clusters"
 read clusters
@@ -20,17 +23,17 @@ for c in $clusters; do
     scope=$($_JQ -r .scope <<< "$export")
     source=$($_JQ -r .source <<< "$export")
     if [ "${scope}" == "system" ]; then
-        if ! grep -q /mnt/flock/targets/${c}/${a} /proc/mounts; then
-            echo "# mount -t nfs $source /mnt/flock/targets/${c}/${a}"
-            mkdir -p /mnt/flock/targets/${c}/${a}
-            mount -t nfs $source /mnt/flock/targets/${c}/${a}
+        if ! grep -q ${cw_FLOCK_mnt}/targets/${c}/${a} /proc/mounts; then
+            echo "# mount -t nfs $source ${cw_FLOCK_mnt}/targets/${c}/${a}"
+            mkdir -p ${cw_FLOCK_mnt}/targets/${c}/${a}
+            mount -t nfs $source ${cw_FLOCK_mnt}/targets/${c}/${a}
         else
-          echo "# already mounted: /mnt/flock/targets/${c}/${a}"
+          echo "# already mounted: ${cw_FLOCK_mnt}/targets/${c}/${a}"
         fi
     fi
   done
 done
-if [ ! -d /mnt/flock/users ]; then
-    mkdir -p /mnt/flock/users
-    chmod 1777 /mnt/flock/users
+if [ ! -d ${cw_FLOCK_mnt}/users ]; then
+    mkdir -p ${cw_FLOCK_mnt}/users
+    chmod 1777 ${cw_FLOCK_mnt}/users
 fi

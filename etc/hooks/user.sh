@@ -17,10 +17,17 @@ if [ "$el" == "sshkey" ]; then
     else
       # else write the value
       if [ ! -f "$home_dir"/.ssh/authorized_keys ]; then
+          if [ ! -d "$home_dir"/.ssh ]; then
+              mkdir -p "$home_dir"/.ssh
+              chown $uname "$home_dir"/.ssh
+              chmod 0700 "$home_dir"/.ssh
+          fi
           touch "$home_dir"/.ssh/authorized_keys
           chown $uname "$home_dir"/.ssh/authorized_keys
           chmod 0600 "$home_dir"/.ssh/authorized_keys
       fi
-      echo "$val" >> "$home_dir"/.ssh/authorized_keys
+      if ! grep -q "$val" "$home_dir"/.ssh/authorized_keys; then
+          echo "$val" >> "$home_dir"/.ssh/authorized_keys
+      fi
     fi
 fi
