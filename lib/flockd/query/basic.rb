@@ -22,6 +22,7 @@ module Flockd
       private
       def connection(endpoint)
         Faraday.new(endpoint) do |conn|
+          conn.options.timeout = ENV['FLOCKD_TIMEOUT'] ? ENV['FLOCKD_TIMEOUT'].to_f : 0.2
           conn.response :json, :content_type => /\bjson$/
           conn.adapter Faraday.default_adapter
         end
